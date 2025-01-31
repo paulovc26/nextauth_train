@@ -1,17 +1,18 @@
 import { getServerSession } from "next-auth";
-import ButtonLogout from "./ButtonLogout";
 import { redirect } from 'next/navigation'
 import Image from "next/image";
+import Navbar from "../components/Navbar";
 
 export default async function Page() {
     const session = await getServerSession();
 
     if (!session) {
-        redirect("/")
+        redirect("/auth/login")
     }
 
     return (
         <div>
+            <Navbar />
             <div>
                 <div>
                     <Image src={session.user?.image ?? "/default-avatar.png"}
@@ -24,12 +25,6 @@ export default async function Page() {
             </div>
             <div>
                 Dashboard
-            </div>
-
-
-
-            <div>
-                <ButtonLogout />
             </div>
         </div>
     );
